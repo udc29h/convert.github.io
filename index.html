@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Binary-Decimal Converter</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        background-image: url('https://picsum.photos/id/10/1000/1000');
+        background-size: cover;
+        background-position: center;
+        backdrop-filter: blur(10px);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      label {
+        margin-bottom: 10px;
+        color: #333;
+      }
+      select {
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      input[type="number"], input[type="text"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      button[type="submit"] {
+        background-color: #2ecc71;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button[type="submit"]:hover {
+        background-color: #27ae60;
+      }
+      .result {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+      .result p:first-child {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Binary-Decimal Converter</h1>
+    <form onsubmit="return false;">
+      <label for="conversion-type">Conversion Type:</label>
+      <select id="conversion-type">
+        <option value="decimal-to-binary">Decimal to Binary</option>
+        <option value="binary-to-decimal">Binary to Decimal</option>
+      </select>
+      <label for="input">Number:</label>
+      <input type="text" id="input" placeholder="Enter a number" required>
+      <button type="submit" onclick="convert()">Convert</button>
+      <div class="result">
+        <p>Result:</p>
+        <p id="output"></p>
+      </div>
+    </form>
+    <script>
+      function convert() {
+        const conversionType = document.getElementById("conversion-type").value;
+        const input = document.getElementById("input").value;
+        let output = "";
+        
+        if (conversionType === "decimal-to-binary") {
+          let decimal = Number(input);
+          while (decimal > 0) {
+            output = (decimal % 2) + output;
+            decimal = Math.floor(decimal / 2);
+          }
+        } else if (conversionType === "binary-to-decimal") {
+          let decimal = 0;
+          let power = 0;
+          for (let i = input.length - 1; i >= 0; i--) {
+            if (input[i] === "1") {
+              decimal += Math.pow(2, power);
+            }
+            power++;
+          }
+          output = decimal;
+        }
+        
+        document.getElementById("output").textContent = output;
+      }
+    </script>
+  </body>
+</html>
+``
